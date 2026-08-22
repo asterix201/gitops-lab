@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podinfo
+  namespace: demo                  # см. разбор ниже — в проде так лучше НЕ делать
+spec:
+  replicas: 2                      # это поле станет полем боя в модулях 4 и 5
+  progressDeadlineSeconds: 60      # чтобы Degraded наступал за минуту, а не за 10
+  selector:
+    matchLabels:
+      app: podinfo                 # immutable — сломаем намеренно в 3.3
+  template:
+    metadata:
+      labels:
+        app: podinfo
+    spec:
+      containers:
+        - name: podinfo
+          image: ghcr.io/stefanprodan/podinfo:6.7.1
+          ports:
+            - containerPort: 9898
+          readinessProbe:          # без него Argo CD посчитает под здоровым слишком рано
+            httpGet: { path: /readyz, port: 9898 }
+            initialDelaySeconds: 3
+          resources:
+            requests: { cpu: 50m, memory: 32Mi }   # requests нужны для HPA в модуле 4
+            limits:   { cpu: 200m, memory: 128Mi }
