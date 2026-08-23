@@ -28,3 +28,8 @@ spec:
   syncPolicy:
     syncOptions:
       - RespectIgnoreDifferences=true   # <-- КРИТИЧНО, см. ниже
+    automated:
+      enabled: true       # явный вкл/выкл — удобный kill switch, см. 5.5
+      prune: true         # удалять ресурсы, которых больше нет в Git
+      selfHeal: true      # откатывать изменения, сделанные в кластере
+      allowEmpty: false   # предохранитель: не сносить всё, если рендер дал пусто
