@@ -5,7 +5,7 @@ metadata:
   namespace: chaos
   annotations:
     argocd.argoproj.io/hook: PreSync                      # фаза: до основного sync
-    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/hook-delete-policy: HookFailed
 spec:
   backoffLimit: 0            # падаем сразу, без шести ретраев Kubernetes
   template:
