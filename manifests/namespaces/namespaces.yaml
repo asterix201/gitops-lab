@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: demo
+  annotations:
+    argocd.argoproj.io/sync-wave: "-10"    # волна на уровне РЕСУРСА
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: chaos
+  annotations:
+    argocd.argoproj.io/sync-wave: "-10"

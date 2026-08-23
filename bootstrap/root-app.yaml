@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/asterix201/gitops-lab.git
+    targetRevision: main
+    path: apps                   # ВАЖНО: только каталог с Application, см. грабли ниже
+    directory:
+      recurse: true              # обходить подкаталоги
+      # include: "*.yaml"        # глоб на включение файлов
+      # exclude: "*.md"          # глоб на исключение
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd            # ВАЖНО: argocd, а не demo — см. грабли ниже
+  syncPolicy:
+    automated:
+      prune: true                # удалили Application из apps/ -> он исчезает из кластера
+      selfHeal: true             # кто-то поправил Application через kubectl -> откат

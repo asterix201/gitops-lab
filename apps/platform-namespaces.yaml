@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: platform-namespaces
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-10"    # волна на уровне ПРИЛОЖЕНИЯ
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/asterix20/gitops-lab.git
+    targetRevision: main
+    path: manifests/namespaces
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd            # Namespace — cluster-scoped, это поле здесь ни на что не влияет
+  syncPolicy:
+    automated:
+      prune: false               # namespace случайно снести не хотим
+      selfHeal: false
