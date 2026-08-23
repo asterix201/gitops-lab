@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: chaos-marker
+data:
+  purpose: "sandbox for deliberate breakage"
+  origin: "module 2.4"

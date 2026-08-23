@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: chaos
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"      # после namespaces (-10)
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/asterix201/gitops-lab.git
+    targetRevision: main
+    path: manifests/chaos
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: chaos                        # namespace создаёт platform-namespaces
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false                       # намеренно: в модуле 3 не хотим борьбы с контроллером
