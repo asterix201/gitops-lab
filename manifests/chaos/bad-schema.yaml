@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bad-schema
+spec:
+  replicas: "two"        # строка вместо int — YAML валиден, схема нет
+  selector:
+    matchLabels: { app: bad-schema }
+  template:
+    metadata:
+      labels: { app: bad-schema }
+    spec:
+      containers:
+        - name: c
+          image: ghcr.io/stefanprodan/podinfo:6.7.1
