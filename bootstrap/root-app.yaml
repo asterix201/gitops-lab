@@ -5,6 +5,12 @@ metadata:
   namespace: argocd
 spec:
   project: default
+  orphanedResources:
+    warn: true                 # показывать предупреждение, но не считать это ошибкой
+    # ignore:                  # что не считать orphan
+    #   - group: ""
+    #     kind: Secret
+    #     name: default-token-*
   source:
     repoURL: https://github.com/asterix201/gitops-lab.git
     targetRevision: main

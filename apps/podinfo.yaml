@@ -18,3 +18,13 @@ spec:
   #   syncOptions:
   #     - CreateNamespace=true       # создать demo, если его нет
   # syncPolicy.automated намеренно ОТСУТСТВУЕТ — синкаем руками до модуля 5
+  ignoreDifferences:
+    - group: apps                    # apiGroup ресурса; "" для core (v1)
+      kind: Deployment
+      name: podinfo                  # опционально; без name — все Deployment приложения
+      namespace: demo                # опционально
+      managedFieldsManagers:         # игнорировать всё, чем владеет этот field manager
+        - kube-controller-manager
+  syncPolicy:
+    syncOptions:
+      - RespectIgnoreDifferences=true   # <-- КРИТИЧНО, см. ниже
