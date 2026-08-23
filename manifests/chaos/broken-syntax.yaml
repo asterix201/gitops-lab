@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: broken
+  namespace: chaos
+data:
+	key: "value"       # <-- ТАБ вместо пробелов, YAML-парсер это не переварит
