@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default                 # обязательное поле; default разрешает всё
   source:
-    repoURL: http://localhost:8082/root/gitops-lab.git
+    repoURL: https://github.com/asterix201/gitops-lab.git
     targetRevision: main           # ветка / тег / полный SHA / HEAD
     path: manifests/podinfo        # путь внутри репо; тип инструмента определится сам
   destination:
