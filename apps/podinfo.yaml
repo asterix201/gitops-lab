@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: podinfo
   namespace: argocd                # Application живут в namespace Argo CD (см. разбор)
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default                 # обязательное поле; default разрешает всё
   source:
@@ -12,7 +14,7 @@ spec:
   destination:
     server: https://kubernetes.default.svc   # "тот кластер, где я сам живу"
     namespace: demo                # namespace по умолчанию для namespaced-ресурсов
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true       # создать demo, если его нет
+  # syncPolicy:
+  #   syncOptions:
+  #     - CreateNamespace=true       # создать demo, если его нет
   # syncPolicy.automated намеренно ОТСУТСТВУЕТ — синкаем руками до модуля 5
