@@ -13,9 +13,16 @@ spec:
     path: manifests/chaos
   destination:
     server: https://kubernetes.default.svc
-    namespace: chaos                        # namespace создаёт platform-namespaces
+    namespace: does-not-exist                        # namespace создаёт platform-namespaces
   syncPolicy:
     automated:
       enabled: false
       prune: true
       selfHeal: false                       # намеренно: в модуле 3 не хотим борьбы с контроллером
+      # syncOptions:
+      #   - CreateNamespace=true          # создать namespace, если его нет
+      # managedNamespaceMetadata:         # и управлять его метаданными
+      #   labels:
+      #     pod-security.kubernetes.io/enforce: baseline
+      #   annotations:
+      #     owner: platform-team
