@@ -16,5 +16,6 @@ spec:
     namespace: chaos                        # namespace создаёт platform-namespaces
   syncPolicy:
     automated:
+      enabled: false
       prune: true
       selfHeal: false                       # намеренно: в модуле 3 не хотим борьбы с контроллером
