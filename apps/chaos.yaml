@@ -13,7 +13,7 @@ spec:
     path: manifests/chaos
   destination:
     server: https://kubernetes.default.svc
-    namespace: does-not-exist                        # namespace создаёт platform-namespaces
+    namespace: chaos                        # namespace создаёт platform-namespaces
   syncPolicy:
     automated:
       # enabled: false
